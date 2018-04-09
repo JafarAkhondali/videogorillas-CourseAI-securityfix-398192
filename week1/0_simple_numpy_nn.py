@@ -52,7 +52,7 @@ def loss(l2_act):
 lr = 0.42
 
 
-for j in xrange(60000):
+for j in range(60000):
 
     l0 = xs
     # l1 = f(np.dot(l0, w1))
@@ -63,7 +63,7 @@ for j in xrange(60000):
     l2_error = l2 - ys
 
     if (j % 1000) == 0:
-        print "Error: " + str(np.mean(np.abs(l2_error)))
+        print("Error: " + str(np.mean(np.abs(l2_error))))
 
     l2_delta = l2_error * df(l2)
 
