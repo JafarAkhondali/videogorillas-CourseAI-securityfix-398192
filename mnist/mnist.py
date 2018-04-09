@@ -30,7 +30,8 @@ def mnist_model():
 
     x = Flatten()(input_layer)
 
-    x = Dense(42, activation='sigmoid')(x)
+    x = Dense(21, activation='sigmoid')(x)
+    x = Dense(21, activation='sigmoid')(x)
     x = Dense(10, activation='softmax')(x)
 
     m = Model(inputs=input_layer, outputs=x)
@@ -49,7 +50,7 @@ model.fit(
     y=y_train,
     validation_data=(x_test, y_test),
     batch_size=1024,
-    epochs=10)
+    epochs=30)
 
 y_predict = model.predict(x_test, batch_size=1024)
 
