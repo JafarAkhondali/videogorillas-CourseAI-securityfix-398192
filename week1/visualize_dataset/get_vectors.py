@@ -12,7 +12,7 @@ img = imread(file_names[0], mode='RGB')
 img = imresize(img, (224, 224, 3))
 
 x_batch = np.zeros((1, 224, 224, 3), dtype='float')
-x_batch[0] = img
+x_batch[0] = img / 127.5 - 1
 
 print(x_batch.shape)
 
