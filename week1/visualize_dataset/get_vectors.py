@@ -12,7 +12,7 @@ batch_size = 16
 
 for i in range(0, len(file_names), batch_size):
     batch = file_names[i: i + batch_size]
-    x_batch = np.zeros((1, 224, 224, 3), dtype='float')
+    x_batch = np.zeros((len(batch), 224, 224, 3), dtype='float')
 
     for j, fn in enumerate(batch):
         img = imread('dataset/' + fn, mode='RGB')
