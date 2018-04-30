@@ -1,21 +1,27 @@
 import os
-from keras.applications.resnet50 import ResNet50
+
 import numpy as np
+from keras.applications.resnet50 import ResNet50
 from scipy.misc import imread, imresize
 
-
-file_names = ['dataset/' + s for s in os.listdir('dataset/')]
+file_names = os.listdir('dataset/')
 
 model = ResNet50(include_top=False, pooling='avg')
 
-img = imread(file_names[0], mode='RGB')
-img = imresize(img, (224, 224, 3))
+batch_size = 16
 
-x_batch = np.zeros((1, 224, 224, 3), dtype='float')
-x_batch[0] = img / 127.5 - 1
+for i in range(0, len(file_names), batch_size):
+    batch = file_names[i: i + batch_size]
+    x_batch = np.zeros((1, 224, 224, 3), dtype='float')
 
-print(x_batch.shape)
+    for j, fn in enumerate(batch):
+        img = imread('dataset/' + fn, mode='RGB')
+        img = imresize(img, (224, 224, 3))
+        x_batch[j] = img
 
-prediction = model.predict(x_batch)
+    x_batch = x_batch / 127.5 - 1
 
-np.save('vectors/1.npy', prediction[0])
+    prediction = model.predict(x_batch)
+
+    for j, fn in enumerate(batch):
+        np.save('vectors/' + fn + '.npy', prediction[j])
