@@ -5,6 +5,10 @@ from tsne import bh_sne
 
 vector_files = os.listdir('vectors/')
 
+with open('filenames.txt', 'w') as f:
+    for v in vector_files:
+        f.write(v.replace('.npy', '') + '\n')
+
 vectors = []
 
 for fn in vector_files:
