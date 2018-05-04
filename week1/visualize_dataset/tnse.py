@@ -1,7 +1,7 @@
-from tsne import bh_sne
 import os
 
 import numpy as np
+from tsne import bh_sne
 
 vector_files = os.listdir('vectors/')
 
@@ -15,5 +15,4 @@ np_vectors = np.array(vectors, dtype=float)
 
 vectors_2d = bh_sne(np_vectors)
 
-print('a')
-
+np.save('vectors_2d.npy', vectors_2d)
