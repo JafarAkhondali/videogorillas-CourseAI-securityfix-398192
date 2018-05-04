@@ -1,22 +1,24 @@
 import os
-
 import numpy as np
-from keras.applications.resnet50 import ResNet50
-from scipy.misc import imread, imresize
+from keras.applications.nasnet import NASNetLarge
+from imageio import imread
+from scipy.misc import imresize
 
 file_names = os.listdir('dataset/')
 
-model = ResNet50(include_top=False, pooling='avg')
+image_shape = (331, 331, 3)
+model = NASNetLarge(input_shape=image_shape, include_top=False, pooling='avg')
 
 batch_size = 16
 
 for i in range(0, len(file_names), batch_size):
     batch = file_names[i: i + batch_size]
-    x_batch = np.zeros((len(batch), 224, 224, 3), dtype='float')
+    x_batch = np.zeros(((len(batch),) + image_shape), dtype='float')
 
     for j, fn in enumerate(batch):
-        img = imread('dataset/' + fn, mode='RGB')
-        img = imresize(img, (224, 224, 3))
+        print(fn)
+        img = imread('dataset/' + fn, pilmode="RGB")
+        img = imresize(img, image_shape)
         x_batch[j] = img
 
     x_batch = x_batch / 127.5 - 1
